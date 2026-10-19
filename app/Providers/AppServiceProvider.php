@@ -11,7 +11,32 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        if (class_exists(\Illuminate\Foundation\Console\ServeCommand::class)) {
+            \Illuminate\Foundation\Console\ServeCommand::$passthroughVariables = array_merge(
+                \Illuminate\Foundation\Console\ServeCommand::$passthroughVariables,
+                [
+                    'SystemRoot',
+                    'windir',
+                    'WINDIR',
+                    'SYSTEMDRIVE',
+                    'SystemDrive',
+                    'TEMP',
+                    'TMP',
+                    'USERPROFILE',
+                    'LOCALAPPDATA',
+                    'APPDATA',
+                    'CommonProgramFiles',
+                    'ProgramFiles',
+                    'ProgramFiles(x86)',
+                    'ComSpec',
+                    'COMSPEC',
+                    'OS',
+                    'HOMEDRIVE',
+                    'HOMEPATH',
+                    'PSModulePath',
+                ]
+            );
+        }
     }
 
     /**
