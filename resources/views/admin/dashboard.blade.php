@@ -158,8 +158,7 @@
                             </td>
                             <td class="font-mono text-hris-text-secondary">{{ $sched->user->nip ?? '-' }}</td>
                             <td>
-                                <span class="font-bold text-hris-primary">{{ $sched->shift->name }}</span>
-                                <span class="text-[11px] text-hris-text-muted">({{ $sched->shift->time_range }})</span>
+                                <span class="pill-primary" title="{{ $sched->shift->time_range }}">{{ $sched->shift->name }}</span>
                             </td>
                             <td class="font-mono">
                                 {{ $att?->clock_in_time?->format('H:i:s') ?? '—' }}

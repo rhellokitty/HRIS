@@ -45,7 +45,7 @@
 
                         <div class="flex flex-col">
                             <div class="flex items-center gap-1.5">
-                                <span class="font-bold text-hris-text">{{ $item->shift->name }}</span>
+                                <span class="pill-primary">{{ $item->shift->name }}</span>
                                 @if ($isToday)
                                     <span class="pill-success text-[9px] px-1.5 py-0.5">Hari Ini</span>
                                 @endif

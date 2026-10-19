@@ -136,7 +136,7 @@
                             @forelse ($daySchedules as $sched)
                                 <div class="bg-[var(--bg-card-solid)] p-2 rounded text-[11px] flex flex-col gap-0.5">
                                     <span class="font-semibold text-hris-text truncate">{{ $sched->user->name }}</span>
-                                    <span class="text-hris-primary font-medium text-[10px]">{{ $sched->shift->name }}</span>
+                                    <span class="pill-primary text-[9px] w-fit px-2 py-0.5">{{ $sched->shift->name }}</span>
                                     <span class="text-hris-text-muted text-[9px] font-mono">{{ $sched->shift->time_range }}</span>
                                 </div>
                             @empty
@@ -175,7 +175,7 @@
                                 </td>
                                 <td class="font-mono text-hris-text-secondary">{{ $item->user->nip ?? '-' }}</td>
                                 <td>
-                                    <span class="font-bold text-hris-primary">{{ $item->shift->name }}</span>
+                                    <span class="pill-primary">{{ $item->shift->name }}</span>
                                 </td>
                                 <td class="font-mono">{{ $item->shift->time_range }} WIB</td>
                                 <td>

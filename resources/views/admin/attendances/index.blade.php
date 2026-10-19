@@ -132,9 +132,9 @@
                                 <td class="font-mono text-hris-text-secondary">{{ $att->user->nip ?? '-' }}</td>
                                 <td>
                                     @if ($att->schedule)
-                                        <span class="font-medium text-hris-primary">{{ $att->schedule->shift->name }}</span>
+                                        <span class="pill-primary" title="{{ $att->schedule->shift->time_range }}">{{ $att->schedule->shift->name }}</span>
                                     @else
-                                        <span class="text-hris-text-muted">Tanpa Shift</span>
+                                        <span class="pill-muted">Tanpa Shift</span>
                                     @endif
                                 </td>
                                 <td class="font-mono">

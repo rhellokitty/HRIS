@@ -67,6 +67,21 @@ Dokumen ini adalah acuan instruksi dan batasan desain wajib bagi seluruh AI Agen
         data-confirm-icon="trash">
   ```
 
+### F. Standardisasi Kapsul (Pill Badge) untuk Kolom Shift di Seluruh Tabel
+- **ATURAN**: Penulisan nama shift kerja (seperti *Shift Pagi*, *Shift Siang*, *Shift Malam*) pada kolom tabel (Dashboard Admin, Rekap Presensi, Jadwal Shift, Master Shift) **WAJIB menggunakan kapsul (`pill-primary`) yang seragam**, berukuran proporsional dan identik dengan kapsul status (`pill-success`, `pill-warning`, dsb.).
+- **DILARANG**: Menampilkan nama shift dengan teks polos tebal berukuran besar atau menumpuk teks jam kerja secara tidak seragam di dalam baris tabel data sehingga membuat tinggi baris tabel jomplang/tidak konsisten.
+- **Penerapan**:
+  ```blade
+  {{-- BENAR: Kapsul konsisten dan seukuran kapsul status --}}
+  <td>
+      @if ($schedule)
+          <span class="pill-primary" title="{{ $schedule->shift->time_range }}">{{ $schedule->shift->name }}</span>
+      @else
+          <span class="pill-muted">Tanpa Shift</span>
+      @endif
+  </td>
+  ```
+
 ---
 
 ## 2. Aturan Backend, Database & Testing

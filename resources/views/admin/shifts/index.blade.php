@@ -31,7 +31,7 @@
                     @forelse ($shifts as $shift)
                         <tr>
                             <td>
-                                <span class="font-bold text-hris-text">{{ $shift->name }}</span>
+                                <span class="pill-primary">{{ $shift->name }}</span>
                             </td>
                             <td class="font-mono">{{ $shift->start_label }} WIB</td>
                             <td class="font-mono">{{ $shift->end_label }} WIB</td>

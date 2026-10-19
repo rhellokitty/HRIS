@@ -23,9 +23,10 @@
                 <h3 class="font-bold text-base text-hris-text">{{ $attendance->user->name }}</h3>
                 <p class="caption">NIP: {{ $attendance->user->nip ?? 'Tidak ada' }} · {{ $attendance->user->email }}</p>
                 @if ($attendance->schedule)
-                    <p class="text-xs text-hris-primary font-medium mt-0.5">
-                        Jadwal: Shift {{ $attendance->schedule->shift->name }} ({{ $attendance->schedule->shift->time_range }})
-                    </p>
+                    <div class="mt-1 flex items-center gap-1.5">
+                        <span class="pill-primary">{{ $attendance->schedule->shift->name }}</span>
+                        <span class="text-xs text-hris-text-muted font-mono">{{ $attendance->schedule->shift->time_range }} WIB</span>
+                    </div>
                 @endif
             </div>
         </div>
