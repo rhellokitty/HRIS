@@ -5,20 +5,15 @@
     @include('partials.head')
 </head>
 <body class="employee-shell min-h-[100dvh] bg-hris-bg font-sans text-hris-text antialiased">
+    {{-- Theme Toggle Melayang di Pojok Kanan Atas --}}
+    <div class="fixed top-4 right-4 z-50">
+        <button type="button" data-theme-toggle class="btn-surface btn-sm flex items-center gap-1.5" aria-label="Ganti tema">
+            <x-icon name="sun" class="h-4 w-4" />
+            <span data-theme-label>Gelap</span>
+        </button>
+    </div>
+
     <main class="mx-auto flex min-h-[100dvh] w-full max-w-md flex-col justify-center gap-5 px-4 py-10">
-        <div class="flex items-center justify-between px-1">
-            <div class="flex items-center gap-3">
-                <x-brand-logo size="lg" />
-                <div>
-                    <h1 class="text-sm font-bold tracking-tight">{{ config('app.name', 'HRIS') }}</h1>
-                    <p class="text-[11px] text-hris-text-muted">Shift &amp; Absensi</p>
-                </div>
-            </div>
-            <button type="button" data-theme-toggle class="btn-surface btn-sm" aria-label="Ganti tema">
-                <x-icon name="sun" class="h-4 w-4" />
-                <span data-theme-label>Gelap</span>
-            </button>
-        </div>
 
         @include('partials.flash', ['hideErrorSummary' => true])
 
