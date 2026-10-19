@@ -23,30 +23,23 @@
 
     <main class="relative mx-auto flex w-full max-w-md flex-col gap-5 px-4 pt-4 pb-dock">
 
-        {{-- Top Bar: Avatar, Nama & Status Shift --}}
-        <header class="glass-card flex items-center justify-between gap-3 p-4">
-            <div class="flex min-w-0 items-center gap-3">
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-hris-primary-soft text-hris-primary">
-                    <x-icon name="user" class="h-5 w-5" />
-                </div>
-                <div class="min-w-0">
-                    <h2 class="truncate text-sm font-bold tracking-tight">{{ $displayName }}</h2>
-                    <p class="truncate text-xs text-hris-text-secondary">
-                        @if ($authUser?->nip)
-                            NIP {{ $authUser->nip }} ·
-                        @endif
-                        {{ ucfirst($authUser?->role ?? 'karyawan') }}
-                    </p>
-                </div>
+        {{-- Top Bar: Sticky Clean Header Bergaya iOS (Mengikuti Scroll & Nama Saja) --}}
+        <header class="sticky top-0 z-40 -mx-4 -mt-4 px-4 py-3.5 bg-hris-bg/80 backdrop-blur-xl border-b border-[var(--bg-surface)] flex items-center justify-between gap-3 transition-all">
+            <div class="min-w-0">
+                <h1 class="text-sm font-bold tracking-tight text-hris-text truncate">{{ $displayName }}</h1>
             </div>
 
-            @hasSection('header-badge')
-                @yield('header-badge')
-            @elseif (isset($employeeTodaySchedule) && $employeeTodaySchedule)
-                <span class="pill-success">Shift {{ $employeeTodaySchedule->shift->name }}</span>
-            @else
-                <span class="pill-muted">Libur</span>
-            @endif
+            <div class="flex items-center gap-1.5 shrink-0">
+                <button type="button" data-theme-toggle class="btn-ghost btn-sm p-1.5 text-hris-text-muted hover:text-hris-text" aria-label="Ganti tema">
+                    <x-icon name="sun" class="h-4 w-4" />
+                </button>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn-ghost btn-sm p-1.5 text-hris-text-muted hover:text-hris-danger" title="Keluar" aria-label="Keluar">
+                        <x-icon name="logout" class="h-4 w-4" />
+                    </button>
+                </form>
+            </div>
         </header>
 
         @hasSection('page-header')

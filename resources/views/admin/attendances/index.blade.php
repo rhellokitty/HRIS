@@ -131,11 +131,7 @@
                                 </td>
                                 <td class="font-mono text-hris-text-secondary">{{ $att->user->nip ?? '-' }}</td>
                                 <td>
-                                    @if ($att->schedule)
-                                        <span class="pill-primary" title="{{ $att->schedule->shift->time_range }}">{{ $att->schedule->shift->name }}</span>
-                                    @else
-                                        <span class="pill-muted">Tanpa Shift</span>
-                                    @endif
+                                    <x-shift-badge :shift="$att->schedule?->shift" />
                                 </td>
                                 <td class="font-mono">
                                     {{ $att->clock_in_time?->format('H:i:s') ?? '—' }}

@@ -2,35 +2,33 @@
 
 @section('title', 'Presensi Karyawan')
 
-@section('header-badge')
-    @if ($schedule)
-        <span class="pill-success">Shift {{ $schedule->shift->name }}</span>
-    @else
-        <span class="pill-muted">Tanpa Jadwal</span>
-    @endif
-@endsection
-
 @section('content')
 <div class="flex flex-col gap-5 animate-fade-up">
 
     {{-- Widget Utama Presensi GPS (Design PRD §5.1) --}}
-    <section class="glass-card p-5 sm:p-6 flex flex-col items-center gap-4 text-center">
-        <span class="text-xs font-medium text-hris-text-muted tracking-wide">
+    <section class="glass-card p-6 flex flex-col items-center gap-4 text-center">
+        <span class="text-[11px] font-semibold uppercase tracking-wider text-hris-text-muted">
             {{ now()->translatedFormat('l, d F Y') }}
         </span>
 
-        {{-- Display Jam Digital Live --}}
-        <div class="text-display font-bold tracking-tight text-hris-text font-mono" id="attendance-clock">
-            {{ now()->format('H:i:s') }} <span class="text-xs font-sans text-hris-text-secondary">WIB</span>
+        {{-- Display Jam Digital Live ala iOS --}}
+        <div class="flex items-baseline justify-center gap-1.5 tabular-nums">
+            <span class="text-5xl sm:text-6xl font-bold tracking-tight text-hris-text" id="attendance-time">
+                {{ now()->format('H:i') }}
+            </span>
+            <div class="flex flex-col items-start leading-none">
+                <span class="text-lg font-medium text-hris-text-muted" id="attendance-seconds">:{{ now()->format('s') }}</span>
+                <span class="text-[9px] font-bold text-hris-primary tracking-wider">WIB</span>
+            </div>
         </div>
 
-        {{-- Detail Shift Terjadwal --}}
-        @if ($schedule)
-            <div class="w-full flex items-center justify-between py-2 px-3 rounded-md bg-hris-surface text-xs">
-                <span class="text-hris-text-secondary">Jadwal Shift:</span>
-                <span class="font-bold text-hris-primary">{{ $schedule->shift->name }} ({{ $schedule->shift->time_range }})</span>
-            </div>
-        @endif
+        {{-- Detail Shift Terjadwal Menggunakan x-shift-badge --}}
+        <div class="flex items-center justify-center gap-2">
+            <x-shift-badge :shift="$schedule?->shift" />
+            @if ($schedule?->shift)
+                <span class="text-xs text-hris-text-secondary font-mono">{{ $schedule->shift->time_range }} WIB</span>
+            @endif
+        </div>
 
         {{-- Indikator Status Geolocation GPS --}}
         <div class="w-full flex flex-col gap-2 p-3 rounded-md bg-hris-surface text-xs text-left" id="geo-box">
@@ -190,10 +188,10 @@
         const h = String(now.getHours()).padStart(2, '0');
         const m = String(now.getMinutes()).padStart(2, '0');
         const s = String(now.getSeconds()).padStart(2, '0');
-        const el = document.getElementById('attendance-clock');
-        if (el) {
-            el.innerHTML = `${h}:${m}:${s} <span class="text-xs font-sans text-hris-text-secondary">WIB</span>`;
-        }
+        const timeEl = document.getElementById('attendance-time');
+        const secEl = document.getElementById('attendance-seconds');
+        if (timeEl) timeEl.textContent = `${h}:${m}`;
+        if (secEl) secEl.textContent = `:${s}`;
     }
     setInterval(updateClock, 1000);
 

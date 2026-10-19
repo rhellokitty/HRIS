@@ -175,7 +175,7 @@
                                 </td>
                                 <td class="font-mono text-hris-text-secondary">{{ $item->user->nip ?? '-' }}</td>
                                 <td>
-                                    <span class="pill-primary">{{ $item->shift->name }}</span>
+                                    <x-shift-badge :shift="$item->shift" />
                                 </td>
                                 <td class="font-mono">{{ $item->shift->time_range }} WIB</td>
                                 <td>

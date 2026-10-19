@@ -5,28 +5,30 @@
 @section('content')
 <div class="flex flex-col gap-5 animate-fade-up">
 
-    {{-- Widget Utama: Presensi Cepat & Jam Server (Design PRD §5.1) --}}
-    <section class="glass-card p-5 flex flex-col items-center gap-3 text-center">
-        <span class="text-xs font-medium text-hris-text-muted tracking-wide" id="live-date">
+    {{-- Widget Utama: Presensi Cepat & Jam Server Bergaya iOS --}}
+    <section class="glass-card p-6 flex flex-col items-center gap-4 text-center">
+        <span class="text-[11px] font-semibold uppercase tracking-wider text-hris-text-muted">
             {{ now()->translatedFormat('l, d F Y') }}
         </span>
 
-        <div class="flex items-baseline justify-center gap-1 font-mono">
-            <span class="text-display font-bold text-hris-text" id="live-clock">{{ now()->format('H:i:s') }}</span>
-            <span class="text-xs font-sans text-hris-text-secondary">WIB</span>
+        {{-- Jam Digital iOS: Jam & Menit Besar Tenang, Detik Halus Tabular --}}
+        <div class="flex items-baseline justify-center gap-1.5 tabular-nums">
+            <span class="text-5xl sm:text-6xl font-bold tracking-tight text-hris-text" id="live-time">
+                {{ now()->format('H:i') }}
+            </span>
+            <div class="flex flex-col items-start leading-none">
+                <span class="text-lg font-medium text-hris-text-muted" id="live-seconds">:{{ now()->format('s') }}</span>
+                <span class="text-[9px] font-bold text-hris-primary tracking-wider">WIB</span>
+            </div>
         </div>
 
-        @if ($schedule)
-            <div class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md bg-hris-surface text-xs text-hris-text-secondary">
-                <x-icon name="briefcase" class="w-4 h-4 text-hris-primary" />
-                <span>Shift {{ $schedule->shift->name }} ({{ $schedule->shift->time_range }})</span>
-            </div>
-        @else
-            <div class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md bg-hris-surface text-xs text-hris-text-secondary">
-                <x-icon name="calendar" class="w-4 h-4 text-hris-text-muted" />
-                <span>Tidak ada jadwal shift terjadwal hari ini</span>
-            </div>
-        @endif
+        {{-- Kapsul Shift Menggunakan Komponen x-shift-badge --}}
+        <div class="flex items-center justify-center gap-2">
+            <x-shift-badge :shift="$schedule?->shift" />
+            @if ($schedule?->shift)
+                <span class="text-xs text-hris-text-secondary font-mono">{{ $schedule->shift->time_range }} WIB</span>
+            @endif
+        </div>
 
         {{-- Status aksi presensi --}}
         @if ($action === 'clock_out')
@@ -111,16 +113,16 @@
 
 @push('scripts')
 <script>
-    // Live Clock Client-Side Display (Server-Side Time Locking tetap berlaku saat submit)
+    // Live Clock Client-Side Display bergaya iOS
     function updateLiveClock() {
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
-        const clockEl = document.getElementById('live-clock');
-        if (clockEl) {
-            clockEl.textContent = `${hours}:${minutes}:${seconds}`;
-        }
+        const timeEl = document.getElementById('live-time');
+        const secEl = document.getElementById('live-seconds');
+        if (timeEl) timeEl.textContent = `${hours}:${minutes}`;
+        if (secEl) secEl.textContent = `:${seconds}`;
     }
     setInterval(updateLiveClock, 1000);
 </script>

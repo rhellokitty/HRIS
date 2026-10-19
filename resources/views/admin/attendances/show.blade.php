@@ -24,7 +24,7 @@
                 <p class="caption">NIP: {{ $attendance->user->nip ?? 'Tidak ada' }} · {{ $attendance->user->email }}</p>
                 @if ($attendance->schedule)
                     <div class="mt-1 flex items-center gap-1.5">
-                        <span class="pill-primary">{{ $attendance->schedule->shift->name }}</span>
+                        <x-shift-badge :shift="$attendance->schedule->shift" />
                         <span class="text-xs text-hris-text-muted font-mono">{{ $attendance->schedule->shift->time_range }} WIB</span>
                     </div>
                 @endif

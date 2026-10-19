@@ -29,7 +29,7 @@
                             </span>
                             @if ($att->schedule)
                                 <div class="mt-0.5 flex items-center gap-1.5">
-                                    <span class="pill-primary">Shift {{ $att->schedule->shift->name }}</span>
+                                    <x-shift-badge :shift="$att->schedule->shift" />
                                     <span class="text-[10px] text-hris-text-muted font-mono">{{ $att->schedule->shift->time_range }}</span>
                                 </div>
                             @endif
