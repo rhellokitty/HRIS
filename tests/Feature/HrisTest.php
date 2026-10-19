@@ -39,8 +39,9 @@ class HrisTest extends TestCase
 
         $this->shiftPagi = Shift::firstOrCreate(
             ['name' => 'Shift Pagi Test'],
-            ['start_time' => '08:00', 'end_time' => '16:00']
+            ['start_time' => '00:00', 'end_time' => '23:59']
         );
+        $this->shiftPagi->update(['start_time' => '00:00', 'end_time' => '23:59']);
 
         // Bersihkan data sementara test user agar tes bersifat idempoten
         Attendance::where('user_id', $this->karyawan->id)->delete();

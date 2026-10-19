@@ -93,7 +93,12 @@
                                     </a>
                                     @if ($user->id !== auth()->id())
                                         <form method="POST" action="{{ route('admin.users.destroy', $user) }}"
-                                              data-confirm="Hapus akun {{ $user->name }}?">
+                                              data-confirm="Hapus akun {{ $user->name }}?"
+                                              data-confirm-title="Hapus Akun Pengguna"
+                                              data-confirm-message="Apakah Anda yakin ingin menghapus pengguna '{{ $user->name }}' ({{ $user->email }})? Seluruh data terkait pengguna ini akan dihapus dari sistem."
+                                              data-confirm-btn="Ya, Hapus Pengguna"
+                                              data-confirm-variant="danger"
+                                              data-confirm-icon="trash">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn-danger btn-sm">

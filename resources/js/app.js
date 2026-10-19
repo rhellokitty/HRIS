@@ -1,14 +1,9 @@
 import './bootstrap';
 import { initTheme } from './theme';
 import { initSidebar } from './sidebar';
+import { initConfirmModal } from './modal';
 
 initTheme();
 initSidebar();
+initConfirmModal();
 
-// Konfirmasi aksi destruktif: <form data-confirm="Hapus data ini?">
-document.addEventListener('submit', (event) => {
-    const form = event.target.closest('form[data-confirm]');
-    if (form && !window.confirm(form.dataset.confirm)) {
-        event.preventDefault();
-    }
-});

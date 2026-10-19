@@ -94,7 +94,12 @@
 
                                         {{-- Aksi Tolak (PRD §3.C) --}}
                                         <form method="POST" action="{{ route('admin.leaves.reject', $leave) }}"
-                                              data-confirm="Tolak permohonan cuti {{ $leave->user->name }}?">
+                                              data-confirm="Tolak permohonan cuti {{ $leave->user->name }}?"
+                                              data-confirm-title="Tolak Permohonan Cuti"
+                                              data-confirm-message="Apakah Anda yakin ingin menolak permohonan cuti untuk {{ $leave->user->name }} ({{ $leave->start_date->translatedFormat('d M Y') }} s/d {{ $leave->end_date->translatedFormat('d M Y') }})?"
+                                              data-confirm-btn="Ya, Tolak Permohonan"
+                                              data-confirm-variant="danger"
+                                              data-confirm-icon="exclamation">
                                             @csrf
                                             <button type="submit" class="btn-danger btn-sm flex items-center gap-1">
                                                 <x-icon name="x" class="w-3.5 h-3.5" />

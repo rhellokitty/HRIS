@@ -8,11 +8,16 @@
     @if (auth()->user()->isAdmin())
         <div class="flex items-center gap-2">
             {{-- Tombol Generate Jadwal Mingguan (PRD §3.B) --}}
-            <form method="POST" action="{{ route('admin.schedules.generate') }}">
+            <form method="POST" action="{{ route('admin.schedules.generate') }}"
+                  data-confirm="Generate jadwal otomatis untuk pekan depan (mulai {{ $selectedDate->copy()->addWeek()->startOfWeek()->translatedFormat('d M Y') }})?"
+                  data-confirm-title="Generate Jadwal Mingguan"
+                  data-confirm-message="Sistem akan menyusun jadwal shift otomatis untuk seluruh karyawan aktif pada periode pekan depan mulai {{ $selectedDate->copy()->addWeek()->startOfWeek()->translatedFormat('d F Y') }}."
+                  data-confirm-btn="Ya, Generate Jadwal"
+                  data-confirm-variant="primary"
+                  data-confirm-icon="sparkles">
                 @csrf
                 <input type="hidden" name="start_date" value="{{ $selectedDate->copy()->addWeek()->startOfWeek()->toDateString() }}">
-                <button type="submit" class="btn-primary btn-md flex items-center gap-1.5"
-                        onclick="return confirm('Generate jadwal otomatis untuk pekan depan (mulai {{ $selectedDate->copy()->addWeek()->startOfWeek()->translatedFormat('d M Y') }})?')">
+                <button type="submit" class="btn-primary btn-md flex items-center gap-1.5">
                     <x-icon name="sparkles" class="w-4 h-4" />
                     <span>Generate Jadwal Mingguan</span>
                 </button>
@@ -193,7 +198,12 @@
                                 @if (auth()->user()->isAdmin())
                                     <td class="text-right">
                                         <form method="POST" action="{{ route('admin.schedules.destroy', $item) }}"
-                                              data-confirm="Hapus plotting jadwal ini?">
+                                              data-confirm="Hapus plotting jadwal ini?"
+                                              data-confirm-title="Hapus Plotting Jadwal"
+                                              data-confirm-message="Apakah Anda yakin ingin menghapus jadwal {{ $item->shift->name }} untuk {{ $item->user->name }} pada tanggal {{ $item->date->translatedFormat('d M Y') }}?"
+                                              data-confirm-btn="Ya, Hapus Jadwal"
+                                              data-confirm-variant="danger"
+                                              data-confirm-icon="trash">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn-danger btn-sm">

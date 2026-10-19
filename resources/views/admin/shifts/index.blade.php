@@ -54,7 +54,12 @@
                                         <span>Edit</span>
                                     </a>
                                     <form method="POST" action="{{ route('admin.shifts.destroy', $shift) }}"
-                                          data-confirm="Hapus shift {{ $shift->name }}?">
+                                          data-confirm="Hapus shift {{ $shift->name }}?"
+                                          data-confirm-title="Hapus Master Shift"
+                                          data-confirm-message="Apakah Anda yakin ingin menghapus master shift '{{ $shift->name }}' ({{ \Carbon\Carbon::parse($shift->start_time)->format('H:i') }} - {{ \Carbon\Carbon::parse($shift->end_time)->format('H:i') }})? Tindakan ini tidak dapat dibatalkan."
+                                          data-confirm-btn="Ya, Hapus Shift"
+                                          data-confirm-variant="danger"
+                                          data-confirm-icon="trash">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn-danger btn-sm">

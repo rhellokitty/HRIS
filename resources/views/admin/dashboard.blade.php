@@ -6,10 +6,15 @@
 
 @section('page-actions')
     @if (auth()->user()->isAdmin())
-        <form method="POST" action="{{ route('admin.schedules.generate') }}">
+        <form method="POST" action="{{ route('admin.schedules.generate') }}"
+              data-confirm="Generate jadwal otomatis untuk pekan depan?"
+              data-confirm-title="Generate Jadwal Mingguan"
+              data-confirm-message="Sistem akan menyusun plotting shift otomatis untuk seluruh karyawan aktif pada pekan depan berdasarkan shift default."
+              data-confirm-btn="Ya, Generate Jadwal"
+              data-confirm-variant="primary"
+              data-confirm-icon="sparkles">
             @csrf
-            <button type="submit" class="btn-primary btn-md flex items-center gap-1.5"
-                    onclick="return confirm('Generate jadwal otomatis untuk pekan depan?')">
+            <button type="submit" class="btn-primary btn-md flex items-center gap-1.5">
                 <x-icon name="sparkles" class="w-4 h-4" />
                 <span>Generate Jadwal</span>
             </button>
