@@ -25,49 +25,72 @@
 @section('content')
 <div class="flex flex-col gap-6 animate-fade-up">
 
-    {{-- 1. KPI Executive Metric Cards (4 Kolom - Design PRD §5.2) --}}
+    {{-- 1. KPI Executive Metric Cards (4 Kolom - Design PRD §5.2 / iOS Style) --}}
     <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {{-- Total Karyawan --}}
-        <div class="glass-card p-5 flex flex-col gap-2">
-            <span class="kpi-label">Total Karyawan</span>
-            <div class="flex items-baseline justify-between">
-                <span class="kpi-value">{{ $totalEmployees }}</span>
-                <span class="text-xs font-medium text-hris-primary">Pegawai</span>
+        <div class="glass-card p-5 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between">
+                <span class="kpi-label">Total Karyawan</span>
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-hris-surface text-hris-primary">
+                    <x-icon name="users" class="w-4 h-4" />
+                </div>
+            </div>
+            <div class="flex flex-col gap-1">
+                <span class="text-3xl font-bold tracking-tight text-hris-text">{{ $totalEmployees }}</span>
+                <span class="text-xs text-hris-text-secondary">Pegawai terdaftar aktif</span>
             </div>
         </div>
 
         {{-- Kehadiran Hari Ini --}}
-        <div class="glass-card p-5 flex flex-col gap-2">
-            <span class="kpi-label">Kehadiran Hari Ini</span>
-            <div class="flex items-baseline justify-between">
-                <span class="kpi-value text-hris-success">{{ $presentRate }}%</span>
-                <span class="text-xs font-medium text-hris-text-secondary">{{ $presentTodayCount }} hadir</span>
+        <div class="glass-card p-5 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between">
+                <span class="kpi-label">Kehadiran Hari Ini</span>
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-hris-surface text-hris-primary">
+                    <x-icon name="clipboard-check" class="w-4 h-4" />
+                </div>
             </div>
-            @if ($lateTodayCount > 0)
-                <span class="text-[11px] text-hris-warning">{{ $lateTodayCount }} terlambat masuk</span>
-            @endif
+            <div class="flex flex-col gap-1">
+                <span class="text-3xl font-bold tracking-tight text-hris-text">{{ $presentRate }}%</span>
+                <span class="text-xs text-hris-text-secondary">
+                    {{ $presentTodayCount }} dari {{ $totalEmployees }} hadir
+                    @if ($lateTodayCount > 0)
+                        · {{ $lateTodayCount }} terlambat
+                    @endif
+                </span>
+            </div>
         </div>
 
         {{-- Cuti / Izin Hari Ini --}}
-        <div class="glass-card p-5 flex flex-col gap-2">
-            <span class="kpi-label">Sedang Cuti / Izin</span>
-            <div class="flex items-baseline justify-between">
-                <span class="kpi-value text-hris-info">{{ $onLeaveTodayCount }}</span>
-                <span class="text-xs font-medium text-hris-text-secondary">Staf</span>
+        <div class="glass-card p-5 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between">
+                <span class="kpi-label">Sedang Cuti / Izin</span>
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-hris-surface text-hris-primary">
+                    <x-icon name="calendar" class="w-4 h-4" />
+                </div>
+            </div>
+            <div class="flex flex-col gap-1">
+                <span class="text-3xl font-bold tracking-tight text-hris-text">{{ $onLeaveTodayCount }}</span>
+                <span class="text-xs text-hris-text-secondary">Pegawai berhalangan / cuti</span>
             </div>
         </div>
 
         {{-- Pending Approvals --}}
-        <div class="glass-card p-5 flex flex-col gap-2">
-            <span class="kpi-label">Pending Approval</span>
-            <div class="flex items-baseline justify-between">
-                <span class="kpi-value text-hris-warning">{{ $pendingLeaveCount }}</span>
+        <div class="glass-card p-5 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between">
+                <span class="kpi-label">Pending Approval</span>
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-hris-surface text-hris-primary">
+                    <x-icon name="clipboard" class="w-4 h-4" />
+                </div>
+            </div>
+            <div class="flex flex-col gap-1">
+                <span class="text-3xl font-bold tracking-tight text-hris-text">{{ $pendingLeaveCount }}</span>
                 @if ($pendingLeaveCount > 0 && auth()->user()->isAdmin())
-                    <a href="{{ route('admin.leaves.index') }}" class="text-xs font-semibold text-hris-warning hover:underline">
-                        Perlu respon &rarr;
+                    <a href="{{ route('admin.leaves.index') }}" class="text-xs font-medium text-hris-primary hover:underline flex items-center gap-1">
+                        <span>Menunggu respon persetujuan</span>
+                        <x-icon name="chevron-right" class="w-3 h-3" />
                     </a>
                 @else
-                    <span class="text-xs font-medium text-hris-text-secondary">Terkini</span>
+                    <span class="text-xs text-hris-text-secondary">Tidak ada antrean approval</span>
                 @endif
             </div>
         </div>
@@ -78,10 +101,10 @@
         <h3 class="section-title">Master Shift Operasional</h3>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             @forelse ($activeShifts as $shift)
-                <div class="glass-surface p-3.5 flex items-center justify-between">
+                <div class="glass-surface p-3.5 flex items-center justify-between rounded-xl">
                     <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-md bg-hris-primary-soft text-hris-primary flex items-center justify-center font-bold text-xs">
-                            {{ substr($shift->name, 0, 2) }}
+                        <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-hris-surface text-hris-primary">
+                            <x-icon name="clock" class="h-4 w-4" />
                         </div>
                         <div>
                             <p class="font-bold text-xs text-hris-text">{{ $shift->name }}</p>

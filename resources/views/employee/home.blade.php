@@ -60,15 +60,15 @@
     <section class="grid grid-cols-3 gap-3">
         <div class="glass-card p-3 flex flex-col items-center text-center gap-1">
             <span class="text-[11px] font-medium text-hris-text-muted">Sisa Cuti</span>
-            <span class="text-lg font-bold text-hris-primary">{{ $remainingLeave }} Hari</span>
+            <span class="text-base font-bold text-hris-text">{{ $remainingLeave }} Hari</span>
         </div>
         <div class="glass-card p-3 flex flex-col items-center text-center gap-1">
             <span class="text-[11px] font-medium text-hris-text-muted">Hadir Bulan Ini</span>
-            <span class="text-lg font-bold text-hris-success">{{ $presentThisMonth }} Hari</span>
+            <span class="text-base font-bold text-hris-text">{{ $presentThisMonth }} Hari</span>
         </div>
         <div class="glass-card p-3 flex flex-col items-center text-center gap-1">
             <span class="text-[11px] font-medium text-hris-text-muted">Terlambat</span>
-            <span class="text-lg font-bold text-hris-warning">{{ $lateThisMonth }}x</span>
+            <span class="text-base font-bold text-hris-text">{{ $lateThisMonth }}x</span>
         </div>
     </section>
 
@@ -76,29 +76,29 @@
     <section class="glass-card p-4 flex flex-col gap-3">
         <h3 class="section-title">Menu Cepat</h3>
         <div class="grid grid-cols-2 gap-3">
-            <a href="{{ route('employee.attendance.index') }}" class="glass-surface p-3 flex flex-col gap-1.5 transition-colors hover:bg-hris-surface-hover">
-                <div class="w-8 h-8 rounded-md bg-hris-primary-soft text-hris-primary flex items-center justify-center">
+            <a href="{{ route('employee.attendance.index') }}" class="glass-surface p-3 flex flex-col gap-1.5 rounded-xl transition-colors hover:bg-hris-surface-hover">
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-hris-surface text-hris-primary">
                     <x-icon name="clock" class="w-4 h-4" />
                 </div>
                 <span class="font-bold text-xs text-hris-text">Presensi GPS</span>
                 <span class="text-[10px] text-hris-text-muted">Catat kehadiran</span>
             </a>
-            <a href="{{ route('employee.leave.create') }}" class="glass-surface p-3 flex flex-col gap-1.5 transition-colors hover:bg-hris-surface-hover">
-                <div class="w-8 h-8 rounded-md bg-hris-warning-soft text-hris-warning flex items-center justify-center">
+            <a href="{{ route('employee.leave.create') }}" class="glass-surface p-3 flex flex-col gap-1.5 rounded-xl transition-colors hover:bg-hris-surface-hover">
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-hris-surface text-hris-primary">
                     <x-icon name="plus" class="w-4 h-4" />
                 </div>
                 <span class="font-bold text-xs text-hris-text">Ajukan Cuti/Izin</span>
                 <span class="text-[10px] text-hris-text-muted">Formulir baru</span>
             </a>
-            <a href="{{ route('employee.schedule.index') }}" class="glass-surface p-3 flex flex-col gap-1.5 transition-colors hover:bg-hris-surface-hover">
-                <div class="w-8 h-8 rounded-md bg-hris-info-soft text-hris-info flex items-center justify-center">
+            <a href="{{ route('employee.schedule.index') }}" class="glass-surface p-3 flex flex-col gap-1.5 rounded-xl transition-colors hover:bg-hris-surface-hover">
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-hris-surface text-hris-primary">
                     <x-icon name="calendar" class="w-4 h-4" />
                 </div>
                 <span class="font-bold text-xs text-hris-text">Jadwal Shift</span>
                 <span class="text-[10px] text-hris-text-muted">Lihat jadwal kerja</span>
             </a>
-            <a href="{{ route('employee.attendance.history') }}" class="glass-surface p-3 flex flex-col gap-1.5 transition-colors hover:bg-hris-surface-hover">
-                <div class="w-8 h-8 rounded-md bg-hris-success-soft text-hris-success flex items-center justify-center">
+            <a href="{{ route('employee.attendance.history') }}" class="glass-surface p-3 flex flex-col gap-1.5 rounded-xl transition-colors hover:bg-hris-surface-hover">
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-hris-surface text-hris-primary">
                     <x-icon name="clipboard-check" class="w-4 h-4" />
                 </div>
                 <span class="font-bold text-xs text-hris-text">Riwayat Absen</span>
