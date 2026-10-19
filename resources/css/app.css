@@ -1,0 +1,458 @@
+/* ==========================================================================
+   HRIS Corporate — Design System Stylesheet
+   Sumber: Design PRD (Apple iOS / visionOS Glassmorphism, Biru Korporat)
+   Invariants: Borderless • Zero Box-Shadow • Flat Light Mode • Zero Scrollbar
+   ========================================================================== */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --------------------------------------------------------------------------
+   1. Design Tokens
+   -------------------------------------------------------------------------- */
+@layer base {
+    :root {
+        --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+        /* Border Radius Hierarchy */
+        --radius-xs: 4px;
+        --radius-sm: 8px;      /* Small tags, micro controls */
+        --radius-md: 12px;     /* Buttons, inputs, dropdown items */
+        --radius-lg: 16px;     /* Cards, attendance widgets, employee cards */
+        --radius-xl: 22px;     /* Top headers, modal dialogs, KPI panels */
+        --radius-full: 9999px; /* Pills, avatar rings, floating bottom dock */
+
+        --dock-clearance: max(150px, calc(120px + env(safe-area-inset-bottom)));
+    }
+
+    /* Dark Mode: Executive Midnight Navy (Default) */
+    :root,
+    :root[data-theme='dark'],
+    html[data-theme='dark'] {
+        color-scheme: dark;
+
+        --bg-app: #0A0F1D;
+        --bg-gradient: radial-gradient(circle at 15% 15%, #131E36 0%, #0A0F1D 70%);
+        --bg-card: rgba(16, 26, 48, 0.72);
+        --bg-card-hover: rgba(22, 36, 68, 0.82);
+        --bg-card-solid: #0F1A30;
+        --bg-surface: rgba(255, 255, 255, 0.04);
+        --bg-surface-hover: rgba(255, 255, 255, 0.08);
+        --bg-surface-active: rgba(255, 255, 255, 0.12);
+        --bg-dock: rgba(16, 26, 48, 0.92);
+
+        --text-primary: #F8FAFC;
+        --text-secondary: #94A3B8;
+        --text-muted: #64748B;
+        --text-inverse: #0A0F1D;
+
+        --accent-primary: #2563EB;
+        --accent-primary-hover: #3B82F6;
+        --accent-primary-soft: rgba(37, 99, 235, 0.15);
+        --accent-primary-text: #FFFFFF;
+
+        --accent-secondary: #1D4ED8;
+        --accent-secondary-soft: rgba(29, 78, 216, 0.15);
+
+        --status-success: #10B981;
+        --status-success-soft: rgba(16, 185, 129, 0.15);
+        --status-warning: #F59E0B;
+        --status-warning-soft: rgba(245, 158, 11, 0.15);
+        --status-danger: #F43F5E;
+        --status-danger-soft: rgba(244, 63, 94, 0.15);
+        --status-info: #0EA5E9;
+        --status-info-soft: rgba(14, 165, 233, 0.15);
+
+        --chart-grid: rgba(255, 255, 255, 0.06);
+        --chart-slot: rgba(255, 255, 255, 0.04);
+        --border-glass: transparent;
+    }
+
+    /* Light Mode: Crisp Corporate Slate */
+    :root[data-theme='light'],
+    html[data-theme='light'] {
+        color-scheme: light;
+
+        --bg-app: #F8FAFC;
+        --bg-gradient: #F8FAFC;
+        --bg-card: rgba(255, 255, 255, 0.88);
+        --bg-card-hover: rgba(255, 255, 255, 0.96);
+        --bg-card-solid: #FFFFFF;
+        --bg-surface: rgba(15, 23, 42, 0.04);
+        --bg-surface-hover: rgba(15, 23, 42, 0.07);
+        --bg-surface-active: rgba(15, 23, 42, 0.10);
+        --bg-dock: rgba(255, 255, 255, 0.95);
+
+        --text-primary: #0F172A;
+        --text-secondary: #475569;
+        --text-muted: #64748B;
+        --text-inverse: #FFFFFF;
+
+        --accent-primary: #1D4ED8;
+        --accent-primary-hover: #1E40AF;
+        --accent-primary-soft: rgba(29, 78, 216, 0.10);
+        --accent-primary-text: #FFFFFF;
+
+        --accent-secondary: #2563EB;
+        --accent-secondary-soft: rgba(37, 99, 235, 0.10);
+
+        --status-success: #059669;
+        --status-success-soft: rgba(5, 150, 105, 0.12);
+        --status-warning: #D97706;
+        --status-warning-soft: rgba(217, 119, 6, 0.12);
+        --status-danger: #E11D48;
+        --status-danger-soft: rgba(225, 29, 72, 0.12);
+        --status-info: #0284C7;
+        --status-info-soft: rgba(2, 132, 199, 0.12);
+
+        --chart-grid: rgba(15, 23, 42, 0.06);
+        --chart-slot: rgba(15, 23, 42, 0.04);
+        --border-glass: transparent;
+    }
+
+    /* ----------------------------------------------------------------------
+       2. Base Elements
+       ---------------------------------------------------------------------- */
+
+    /* Universal Zero-Scrollbar (scroll tetap berfungsi) */
+    * {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    *::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    /* Zero Box-Shadow Guarantee */
+    *,
+    *::before,
+    *::after {
+        box-shadow: none !important;
+    }
+
+    html {
+        font-family: var(--font-family);
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: var(--bg-app);
+    }
+
+    /* Natural document scrolling — tidak mengunci overflow/height (Safari iOS PWA) */
+    body {
+        min-height: 100dvh;
+        background: var(--bg-gradient);
+        background-color: var(--bg-app);
+        background-attachment: fixed;
+        color: var(--text-primary);
+        font-size: 0.92rem;
+        line-height: 1.5;
+    }
+
+    ::selection {
+        background: var(--accent-primary-soft);
+        color: var(--text-primary);
+    }
+
+    [x-cloak],
+    [hidden] {
+        display: none !important;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+        font-family: inherit;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   3. Components (Borderless)
+   -------------------------------------------------------------------------- */
+@layer components {
+    /* Typography tokens */
+    .page-title {
+        @apply text-page-title font-bold text-hris-text;
+    }
+
+    .section-title {
+        @apply text-section font-semibold text-hris-text;
+    }
+
+    .caption {
+        @apply text-body-sm text-hris-text-secondary;
+    }
+
+    /* Buttons */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-xs font-semibold
+               transition-all duration-150 ease-hris select-none whitespace-nowrap
+               disabled:cursor-not-allowed disabled:opacity-50;
+        border: none;
+    }
+
+    .btn:active:not(:disabled) {
+        transform: scale(0.97);
+    }
+
+    .btn-primary {
+        @apply btn bg-hris-primary text-hris-primary-text;
+    }
+
+    .btn-soft {
+        @apply btn bg-hris-primary-soft text-hris-primary;
+    }
+
+    .btn-surface {
+        @apply btn bg-hris-surface text-hris-text;
+    }
+
+    .btn-success {
+        @apply btn bg-hris-success-soft text-hris-success;
+    }
+
+    .btn-danger {
+        @apply btn bg-hris-danger-soft text-hris-danger;
+    }
+
+    .btn-ghost {
+        @apply btn bg-transparent text-hris-text-secondary;
+    }
+
+    .btn-lg {
+        @apply rounded-md px-6 py-3.5 text-sm;
+    }
+
+    .btn-sm {
+        @apply rounded-sm px-3 py-1.5 text-xs;
+    }
+
+    /* Hover hanya untuk perangkat pointer (zero sticky-hover di layar sentuh) */
+    @media (hover: hover) and (pointer: fine) {
+        .btn-primary:hover:not(:disabled) {
+            @apply bg-hris-primary-hover;
+        }
+
+        .btn-surface:hover:not(:disabled),
+        .btn-ghost:hover:not(:disabled) {
+            @apply bg-hris-surface-hover text-hris-text;
+        }
+
+        .btn-soft:hover:not(:disabled) {
+            @apply bg-hris-surface-active;
+        }
+    }
+
+    /* Status pills (warna di luar biru hanya untuk status semantik) */
+    .pill {
+        @apply inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-1 text-micro uppercase;
+    }
+
+    .pill-primary {
+        @apply pill bg-hris-primary-soft text-hris-primary;
+    }
+
+    .pill-success {
+        @apply pill bg-hris-success-soft text-hris-success;
+    }
+
+    .pill-warning {
+        @apply pill bg-hris-warning-soft text-hris-warning;
+    }
+
+    .pill-danger {
+        @apply pill bg-hris-danger-soft text-hris-danger;
+    }
+
+    .pill-info {
+        @apply pill bg-hris-info-soft text-hris-info;
+    }
+
+    .pill-muted {
+        @apply pill bg-hris-surface text-hris-text-muted;
+    }
+
+    /* Forms */
+    .form-label {
+        @apply mb-1.5 block text-xs font-medium text-hris-text-secondary;
+    }
+
+    .form-input {
+        @apply block w-full rounded-md bg-hris-surface px-3.5 py-2.5 text-body text-hris-text
+               placeholder:text-hris-text-muted transition-colors duration-150 ease-hris;
+        border: none;
+        outline: 2px solid transparent;
+        outline-offset: 0;
+    }
+
+    .form-input:focus {
+        @apply bg-hris-surface-active;
+        outline-color: var(--accent-primary-soft);
+    }
+
+    .form-input[aria-invalid='true'] {
+        outline-color: var(--status-danger-soft);
+    }
+
+    select.form-input {
+        @apply appearance-none pr-10;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748B'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.85rem center;
+        background-size: 1rem;
+    }
+
+    select.form-input option {
+        background: var(--bg-card-solid);
+        color: var(--text-primary);
+    }
+
+    .form-input[type='date']::-webkit-calendar-picker-indicator,
+    .form-input[type='time']::-webkit-calendar-picker-indicator {
+        opacity: 0.6;
+        cursor: pointer;
+    }
+
+    :root[data-theme='dark'] .form-input[type='date']::-webkit-calendar-picker-indicator,
+    :root[data-theme='dark'] .form-input[type='time']::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+    }
+
+    .form-error {
+        @apply mt-1.5 text-body-sm text-hris-danger;
+    }
+
+    /* Enterprise data table tanpa garis tepi */
+    .table-hris {
+        @apply w-full text-left text-xs;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table-hris thead th {
+        @apply whitespace-nowrap bg-hris-surface px-3 py-3 text-micro font-semibold uppercase text-hris-text-muted;
+    }
+
+    .table-hris thead th:first-child {
+        border-top-left-radius: var(--radius-md);
+        border-bottom-left-radius: var(--radius-md);
+    }
+
+    .table-hris thead th:last-child {
+        border-top-right-radius: var(--radius-md);
+        border-bottom-right-radius: var(--radius-md);
+    }
+
+    .table-hris tbody td {
+        @apply px-3 py-3 align-middle text-hris-text;
+    }
+
+    .table-hris tbody tr {
+        @apply transition-colors duration-150;
+    }
+
+    .table-hris tbody tr:nth-child(even) td {
+        background: var(--chart-slot);
+    }
+
+    .table-hris tbody tr:hover td {
+        @apply bg-hris-surface-hover;
+    }
+
+    .table-hris tbody td:first-child {
+        border-top-left-radius: var(--radius-sm);
+        border-bottom-left-radius: var(--radius-sm);
+    }
+
+    .table-hris tbody td:last-child {
+        border-top-right-radius: var(--radius-sm);
+        border-bottom-right-radius: var(--radius-sm);
+    }
+
+    /* Avatar */
+    .avatar {
+        @apply inline-flex shrink-0 items-center justify-center rounded-full bg-hris-primary-soft font-bold text-hris-primary;
+    }
+
+    /* Admin sidebar links */
+    .nav-link {
+        @apply flex items-center gap-3 rounded-md px-3 py-2.5 text-xs font-medium text-hris-text-secondary transition-colors duration-150;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .nav-link:hover {
+            @apply bg-hris-surface-hover text-hris-text;
+        }
+    }
+
+    .nav-link-active {
+        @apply bg-hris-primary-soft text-hris-primary;
+    }
+
+    /* Employee bottom dock items */
+    .dock-item {
+        @apply flex min-w-[52px] flex-col items-center gap-0.5 px-2.5 py-1.5 text-[10px] font-medium text-hris-text-muted transition-colors duration-150;
+    }
+
+    .dock-item-active {
+        @apply text-hris-primary;
+    }
+
+    .dock-item:active,
+    .dock-fab:active {
+        transform: scale(0.96);
+        transition: transform 0.1s ease;
+    }
+
+    .dock-fab {
+        @apply -my-2 flex h-11 w-11 items-center justify-center rounded-full bg-hris-primary text-hris-primary-text;
+    }
+
+    /* KPI */
+    .kpi-label {
+        @apply text-micro font-semibold uppercase text-hris-text-muted;
+    }
+
+    .kpi-value {
+        @apply text-2xl font-bold tracking-tight text-hris-text;
+    }
+
+    /* Flash / alert banner */
+    .alert {
+        @apply flex items-start gap-3 rounded-lg px-4 py-3 text-body-sm font-medium;
+    }
+
+    .alert-success {
+        @apply alert bg-hris-success-soft text-hris-success;
+    }
+
+    .alert-danger {
+        @apply alert bg-hris-danger-soft text-hris-danger;
+    }
+
+    .alert-warning {
+        @apply alert bg-hris-warning-soft text-hris-warning;
+    }
+
+    .alert-info {
+        @apply alert bg-hris-info-soft text-hris-info;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   4. Touch interactions (layout karyawan): haptic micro-feedback
+   -------------------------------------------------------------------------- */
+.employee-shell button:active,
+.employee-shell a[role='button']:active {
+    transform: scale(0.96);
+    transition: transform 0.1s ease;
+}
