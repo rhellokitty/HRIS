@@ -41,6 +41,10 @@ class HrisTest extends TestCase
             ['name' => 'Shift Pagi Test'],
             ['start_time' => '08:00', 'end_time' => '16:00']
         );
+
+        // Bersihkan data sementara test user agar tes bersifat idempoten
+        Attendance::where('user_id', $this->karyawan->id)->delete();
+        LeaveRequest::where('user_id', $this->karyawan->id)->delete();
     }
 
     /**
