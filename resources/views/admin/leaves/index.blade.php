@@ -11,25 +11,29 @@
     <section class="glass-card p-3 flex flex-wrap items-center gap-2 text-xs">
         <a href="{{ route('admin.leaves.index', ['status' => 'pending']) }}"
            @class(['px-3 py-1.5 rounded-md font-semibold transition-colors flex items-center gap-1.5', 'bg-hris-warning-soft text-hris-warning' => $status === 'pending', 'text-hris-text-secondary hover:bg-hris-surface' => $status !== 'pending'])>
+            <x-icon name="clock" class="w-3.5 h-3.5" />
             <span>Menunggu Respon</span>
             <span class="rounded-full bg-hris-warning/20 px-1.5 py-0.2 text-[10px] font-bold">{{ $counts['pending'] }}</span>
         </a>
 
         <a href="{{ route('admin.leaves.index', ['status' => 'approved']) }}"
            @class(['px-3 py-1.5 rounded-md font-semibold transition-colors flex items-center gap-1.5', 'bg-hris-success-soft text-hris-success' => $status === 'approved', 'text-hris-text-secondary hover:bg-hris-surface' => $status !== 'approved'])>
+            <x-icon name="check" class="w-3.5 h-3.5" />
             <span>Disetujui</span>
             <span class="rounded-full bg-hris-success/20 px-1.5 py-0.2 text-[10px] font-bold">{{ $counts['approved'] }}</span>
         </a>
 
         <a href="{{ route('admin.leaves.index', ['status' => 'rejected']) }}"
            @class(['px-3 py-1.5 rounded-md font-semibold transition-colors flex items-center gap-1.5', 'bg-hris-danger-soft text-hris-danger' => $status === 'rejected', 'text-hris-text-secondary hover:bg-hris-surface' => $status !== 'rejected'])>
+            <x-icon name="x" class="w-3.5 h-3.5" />
             <span>Ditolak</span>
             <span class="rounded-full bg-hris-danger/20 px-1.5 py-0.2 text-[10px] font-bold">{{ $counts['rejected'] }}</span>
         </a>
 
         <a href="{{ route('admin.leaves.index', ['status' => '']) }}"
-           @class(['px-3 py-1.5 rounded-md font-semibold transition-colors', 'bg-hris-surface-active text-hris-text' => empty($status), 'text-hris-text-secondary hover:bg-hris-surface' => !empty($status)])>
-            Semua
+           @class(['px-3 py-1.5 rounded-md font-semibold transition-colors flex items-center gap-1.5', 'bg-hris-surface-active text-hris-text' => empty($status), 'text-hris-text-secondary hover:bg-hris-surface' => !empty($status)])>
+            <x-icon name="clipboard" class="w-3.5 h-3.5" />
+            <span>Semua</span>
         </a>
     </section>
 

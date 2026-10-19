@@ -41,12 +41,14 @@
 
             <div class="flex items-center gap-1 bg-hris-surface p-1 rounded-md text-xs">
                 <a href="{{ route('admin.schedules.index', ['date' => $selectedDate->toDateString(), 'view' => 'day']) }}"
-                   @class(['px-3 py-1 rounded font-semibold transition-colors', 'bg-hris-primary text-white' => $viewMode === 'day', 'text-hris-text-secondary hover:text-hris-text' => $viewMode !== 'day'])>
-                    Harian
+                   @class(['px-3 py-1 rounded font-semibold transition-colors flex items-center gap-1.5', 'bg-hris-primary text-white' => $viewMode === 'day', 'text-hris-text-secondary hover:text-hris-text' => $viewMode !== 'day'])>
+                    <x-icon name="clock" class="w-3.5 h-3.5" />
+                    <span>Harian</span>
                 </a>
                 <a href="{{ route('admin.schedules.index', ['date' => $selectedDate->toDateString(), 'view' => 'week']) }}"
-                   @class(['px-3 py-1 rounded font-semibold transition-colors', 'bg-hris-primary text-white' => $viewMode === 'week', 'text-hris-text-secondary hover:text-hris-text' => $viewMode !== 'week'])>
-                    Mingguan (Kalender)
+                   @class(['px-3 py-1 rounded font-semibold transition-colors flex items-center gap-1.5', 'bg-hris-primary text-white' => $viewMode === 'week', 'text-hris-text-secondary hover:text-hris-text' => $viewMode !== 'week'])>
+                    <x-icon name="calendar" class="w-3.5 h-3.5" />
+                    <span>Mingguan</span>
                 </a>
             </div>
         </form>

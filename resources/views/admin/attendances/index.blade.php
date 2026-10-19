@@ -7,23 +7,62 @@
 @section('content')
 <div class="flex flex-col gap-6 animate-fade-up">
 
-    {{-- Ringkasan Kehadiran Hari Terpilih --}}
-    <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="glass-card p-4 flex flex-col gap-1">
-            <span class="kpi-label">Total Absensi Tercatat</span>
-            <span class="text-xl font-bold text-hris-text">{{ $daySummary['total'] }}</span>
+    {{-- 1. Ringkasan Kehadiran Hari Terpilih (iOS Style Cards) --}}
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {{-- Total Absensi --}}
+        <div class="glass-card p-5 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between">
+                <span class="kpi-label">Total Presensi</span>
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-hris-surface text-hris-primary">
+                    <x-icon name="clipboard" class="w-4 h-4" />
+                </div>
+            </div>
+            <div class="flex flex-col gap-1">
+                <span class="text-3xl font-bold tracking-tight text-hris-text">{{ $daySummary['total'] }}</span>
+                <span class="text-xs text-hris-text-secondary">Data presensi tercatat</span>
+            </div>
         </div>
-        <div class="glass-card p-4 flex flex-col gap-1">
-            <span class="kpi-label">Tepat Waktu</span>
-            <span class="text-xl font-bold text-hris-success">{{ $daySummary['hadir'] }}</span>
+
+        {{-- Tepat Waktu --}}
+        <div class="glass-card p-5 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between">
+                <span class="kpi-label">Tepat Waktu</span>
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-hris-surface text-hris-primary">
+                    <x-icon name="clipboard-check" class="w-4 h-4" />
+                </div>
+            </div>
+            <div class="flex flex-col gap-1">
+                <span class="text-3xl font-bold tracking-tight text-hris-text">{{ $daySummary['hadir'] }}</span>
+                <span class="text-xs text-hris-text-secondary">Sesuai jam shift kerja</span>
+            </div>
         </div>
-        <div class="glass-card p-4 flex flex-col gap-1">
-            <span class="kpi-label">Terlambat</span>
-            <span class="text-xl font-bold text-hris-warning">{{ $daySummary['telat'] }}</span>
+
+        {{-- Terlambat --}}
+        <div class="glass-card p-5 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between">
+                <span class="kpi-label">Terlambat Masuk</span>
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-hris-surface text-hris-primary">
+                    <x-icon name="clock" class="w-4 h-4" />
+                </div>
+            </div>
+            <div class="flex flex-col gap-1">
+                <span class="text-3xl font-bold tracking-tight text-hris-text">{{ $daySummary['telat'] }}</span>
+                <span class="text-xs text-hris-text-secondary">Melebihi batas toleransi</span>
+            </div>
         </div>
-        <div class="glass-card p-4 flex flex-col gap-1">
-            <span class="kpi-label">Alpha / Tidak Hadir</span>
-            <span class="text-xl font-bold text-hris-danger">{{ $daySummary['alpha'] }}</span>
+
+        {{-- Alpha / Tidak Hadir --}}
+        <div class="glass-card p-5 flex flex-col justify-between gap-3">
+            <div class="flex items-center justify-between">
+                <span class="kpi-label">Alpha / Tidak Hadir</span>
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-hris-surface text-hris-primary">
+                    <x-icon name="x-circle" class="w-4 h-4" />
+                </div>
+            </div>
+            <div class="flex flex-col gap-1">
+                <span class="text-3xl font-bold tracking-tight text-hris-text">{{ $daySummary['alpha'] }}</span>
+                <span class="text-xs text-hris-text-secondary">Tidak ada clock-in</span>
+            </div>
         </div>
     </section>
 
@@ -53,11 +92,13 @@
             </div>
 
             <div class="flex items-center gap-2">
-                <button type="submit" class="btn-primary btn-sm">
-                    Terapkan Filter
+                <button type="submit" class="btn-primary btn-sm flex items-center gap-1.5">
+                    <x-icon name="search" class="w-3.5 h-3.5" />
+                    <span>Terapkan Filter</span>
                 </button>
-                <a href="{{ route('admin.attendances.index') }}" class="btn-surface btn-sm">
-                    Reset
+                <a href="{{ route('admin.attendances.index') }}" class="btn-surface btn-sm flex items-center gap-1.5">
+                    <x-icon name="refresh" class="w-3.5 h-3.5" />
+                    <span>Reset</span>
                 </a>
             </div>
         </form>
@@ -124,8 +165,9 @@
                                 @endif
                             </td>
                             <td class="text-right">
-                                <a href="{{ route('admin.attendances.show', $att) }}" class="btn-surface btn-sm">
-                                    Detail
+                                <a href="{{ route('admin.attendances.show', $att) }}" class="btn-surface btn-sm inline-flex items-center gap-1.5">
+                                    <x-icon name="external" class="w-3.5 h-3.5" />
+                                    <span>Detail</span>
                                 </a>
                             </td>
                         </tr>

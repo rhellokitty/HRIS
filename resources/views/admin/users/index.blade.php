@@ -18,20 +18,24 @@
     <section class="glass-card p-4 flex flex-wrap items-center justify-between gap-3">
         <div class="flex flex-wrap items-center gap-2 text-xs">
             <a href="{{ route('admin.users.index') }}"
-               @class(['px-3 py-1.5 rounded-md font-semibold transition-colors', 'bg-hris-surface-active text-hris-text' => empty($role), 'text-hris-text-secondary hover:bg-hris-surface' => !empty($role)])>
-                Semua ({{ $roleCounts['total'] }})
+               @class(['px-3 py-1.5 rounded-md font-semibold transition-colors flex items-center gap-1.5', 'bg-hris-surface-active text-hris-text' => empty($role), 'text-hris-text-secondary hover:bg-hris-surface' => !empty($role)])>
+                <x-icon name="users" class="w-3.5 h-3.5" />
+                <span>Semua ({{ $roleCounts['total'] }})</span>
             </a>
             <a href="{{ route('admin.users.index', ['role' => 'karyawan']) }}"
-               @class(['px-3 py-1.5 rounded-md font-semibold transition-colors', 'bg-hris-success-soft text-hris-success' => $role === 'karyawan', 'text-hris-text-secondary hover:bg-hris-surface' => $role !== 'karyawan'])>
-                Karyawan ({{ $roleCounts['karyawan'] }})
+               @class(['px-3 py-1.5 rounded-md font-semibold transition-colors flex items-center gap-1.5', 'bg-hris-success-soft text-hris-success' => $role === 'karyawan', 'text-hris-text-secondary hover:bg-hris-surface' => $role !== 'karyawan'])>
+                <x-icon name="user" class="w-3.5 h-3.5" />
+                <span>Karyawan ({{ $roleCounts['karyawan'] }})</span>
             </a>
             <a href="{{ route('admin.users.index', ['role' => 'operator']) }}"
-               @class(['px-3 py-1.5 rounded-md font-semibold transition-colors', 'bg-hris-info-soft text-hris-info' => $role === 'operator', 'text-hris-text-secondary hover:bg-hris-surface' => $role !== 'operator'])>
-                Operator ({{ $roleCounts['operator'] }})
+               @class(['px-3 py-1.5 rounded-md font-semibold transition-colors flex items-center gap-1.5', 'bg-hris-info-soft text-hris-info' => $role === 'operator', 'text-hris-text-secondary hover:bg-hris-surface' => $role !== 'operator'])>
+                <x-icon name="shield" class="w-3.5 h-3.5" />
+                <span>Operator ({{ $roleCounts['operator'] }})</span>
             </a>
             <a href="{{ route('admin.users.index', ['role' => 'admin']) }}"
-               @class(['px-3 py-1.5 rounded-md font-semibold transition-colors', 'bg-hris-primary-soft text-hris-primary' => $role === 'admin', 'text-hris-text-secondary hover:bg-hris-surface' => $role !== 'admin'])>
-                Admin ({{ $roleCounts['admin'] }})
+               @class(['px-3 py-1.5 rounded-md font-semibold transition-colors flex items-center gap-1.5', 'bg-hris-primary-soft text-hris-primary' => $role === 'admin', 'text-hris-text-secondary hover:bg-hris-surface' => $role !== 'admin'])>
+                <x-icon name="sparkles" class="w-3.5 h-3.5" />
+                <span>Admin ({{ $roleCounts['admin'] }})</span>
             </a>
         </div>
 
@@ -42,7 +46,10 @@
             <input type="text" name="search" value="{{ $search }}"
                    placeholder="Cari nama, NIP, email..."
                    class="form-input text-xs py-1.5 px-3 w-64">
-            <button type="submit" class="btn-surface btn-sm">Cari</button>
+            <button type="submit" class="btn-surface btn-sm flex items-center gap-1.5">
+                <x-icon name="search" class="w-3.5 h-3.5" />
+                <span>Cari</span>
+            </button>
         </form>
     </section>
 

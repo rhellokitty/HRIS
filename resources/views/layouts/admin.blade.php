@@ -110,9 +110,9 @@
                         <x-icon name="menu" class="h-4 w-4" />
                     </button>
                     <div class="min-w-0">
-                        <h2 class="page-title truncate">@yield('page-title', 'Dashboard')</h2>
+                        <h2 class="page-title">@yield('page-title', 'Dashboard')</h2>
                         @hasSection('page-subtitle')
-                            <p class="caption truncate">@yield('page-subtitle')</p>
+                            <p class="caption">@yield('page-subtitle')</p>
                         @endif
                     </div>
                 </div>

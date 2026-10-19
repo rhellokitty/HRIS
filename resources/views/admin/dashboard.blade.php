@@ -129,8 +129,9 @@
                 <p class="caption">Live status kehadiran per karyawan untuk tanggal {{ $today->translatedFormat('d F Y') }}</p>
             </div>
             <div class="flex items-center gap-2">
-                <a href="{{ route('admin.attendances.index') }}" class="btn-surface btn-sm">
-                    Lihat Rekap Absensi
+                <a href="{{ route('admin.attendances.index') }}" class="btn-surface btn-sm flex items-center gap-1.5">
+                    <x-icon name="clipboard-check" class="w-3.5 h-3.5" />
+                    <span>Lihat Rekap Absensi</span>
                 </a>
             </div>
         </div>
@@ -187,8 +188,9 @@
                             </td>
                             <td class="text-right">
                                 @if ($att)
-                                    <a href="{{ route('admin.attendances.show', $att) }}" class="text-hris-primary font-semibold hover:underline">
-                                        Detail
+                                    <a href="{{ route('admin.attendances.show', $att) }}" class="btn-surface btn-sm inline-flex items-center gap-1.5">
+                                        <x-icon name="external" class="w-3.5 h-3.5" />
+                                        <span>Detail</span>
                                     </a>
                                 @else
                                     <span class="text-hris-text-muted">—</span>
