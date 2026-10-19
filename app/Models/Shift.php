@@ -25,6 +25,18 @@ class Shift extends Model
     }
 
     /**
+     * Nama shift bersih: otomatis menghapus kode hash/hex acak teknis jika ada
+     * (contoh: "Shift Khusus 6ad5d742b707c" menjadi "Shift Khusus").
+     */
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => trim(preg_replace('/\s+[0-9a-f]{6,}$/i', '', (string) $value)) ?: (string) $value,
+            set: fn ($value) => trim(preg_replace('/\s+[0-9a-f]{6,}$/i', '', (string) $value)) ?: (string) $value,
+        );
+    }
+
+    /**
      * Shift lintas hari (mis. Malam 22:00 - 06:00).
      */
     public function isOvernight(): bool

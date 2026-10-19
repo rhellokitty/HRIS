@@ -170,12 +170,7 @@
                         @forelse ($schedules as $item)
                             <tr>
                                 <td>
-                                    <div class="flex items-center gap-2">
-                                        <div class="avatar w-7 h-7 text-[10px]">
-                                            {{ $item->user->initials }}
-                                        </div>
-                                        <span class="font-semibold text-hris-text">{{ $item->user->name }}</span>
-                                    </div>
+                                    <span class="font-semibold text-hris-text">{{ $item->user->name }}</span>
                                 </td>
                                 <td class="font-mono text-hris-text-secondary">{{ $item->user->nip ?? '-' }}</td>
                                 <td>

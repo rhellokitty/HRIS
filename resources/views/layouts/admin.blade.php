@@ -81,7 +81,9 @@
 
             <div class="glass-surface flex items-center justify-between gap-2 p-3">
                 <div class="flex min-w-0 items-center gap-2.5">
-                    <div class="avatar h-8 w-8 bg-hris-primary text-xs text-white">{{ $initials ?: 'AD' }}</div>
+                    <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-hris-primary-soft text-hris-primary">
+                        <x-icon name="user" class="h-4 w-4" />
+                    </div>
                     <div class="min-w-0">
                         <p class="truncate text-xs font-bold">{{ $displayName }}</p>
                         <p class="text-[10px] capitalize text-hris-text-muted">{{ $authUser?->role ?? 'admin' }}</p>

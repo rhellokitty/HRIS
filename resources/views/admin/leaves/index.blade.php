@@ -53,12 +53,7 @@
                     @forelse ($leaves as $leave)
                         <tr>
                             <td>
-                                <div class="flex items-center gap-2">
-                                    <div class="avatar w-7 h-7 text-[10px]">
-                                        {{ $leave->user->initials }}
-                                    </div>
-                                    <span class="font-semibold text-hris-text">{{ $leave->user->name }}</span>
-                                </div>
+                                <span class="font-semibold text-hris-text">{{ $leave->user->name }}</span>
                             </td>
                             <td class="font-mono text-hris-text-secondary">{{ $leave->user->nip ?? '-' }}</td>
                             <td>

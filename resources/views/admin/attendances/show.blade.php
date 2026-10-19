@@ -15,9 +15,9 @@
 
     {{-- Kartu Karyawan & Status --}}
     <section class="glass-card p-6 flex flex-wrap items-center justify-between gap-4">
-        <div class="flex items-center gap-4">
-            <div class="avatar w-14 h-14 text-base">
-                {{ $attendance->user->initials }}
+        <div class="flex items-center gap-3">
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-hris-primary-soft text-hris-primary">
+                <x-icon name="user" class="h-6 w-6" />
             </div>
             <div>
                 <h3 class="font-bold text-base text-hris-text">{{ $attendance->user->name }}</h3>

@@ -9,8 +9,8 @@
 
     {{-- Detail Profil --}}
     <section class="glass-card p-5 flex flex-col items-center text-center gap-3">
-        <div class="avatar w-16 h-16 text-xl">
-            {{ $user->initials }}
+        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-hris-primary-soft text-hris-primary">
+            <x-icon name="user" class="h-7 w-7" />
         </div>
 
         <div>

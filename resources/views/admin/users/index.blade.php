@@ -64,14 +64,7 @@
                     @forelse ($users as $user)
                         <tr>
                             <td>
-                                <div class="flex items-center gap-2.5">
-                                    <div class="avatar w-8 h-8 text-xs">
-                                        {{ $user->initials }}
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <span class="font-bold text-hris-text">{{ $user->name }}</span>
-                                    </div>
-                                </div>
+                                <span class="font-bold text-hris-text">{{ $user->name }}</span>
                             </td>
                             <td class="font-mono text-hris-text-secondary">{{ $user->nip ?? '—' }}</td>
                             <td>{{ $user->email }}</td>

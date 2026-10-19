@@ -132,12 +132,7 @@
                         @endphp
                         <tr>
                             <td>
-                                <div class="flex items-center gap-2.5">
-                                    <div class="avatar w-7 h-7 text-[10px]">
-                                        {{ $sched->user->initials }}
-                                    </div>
-                                    <span class="font-semibold text-hris-text">{{ $sched->user->name }}</span>
-                                </div>
+                                <span class="font-semibold text-hris-text">{{ $sched->user->name }}</span>
                             </td>
                             <td class="font-mono text-hris-text-secondary">{{ $sched->user->nip ?? '-' }}</td>
                             <td>

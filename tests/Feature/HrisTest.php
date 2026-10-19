@@ -37,11 +37,10 @@ class HrisTest extends TestCase
             ['name' => 'Karyawan Test', 'nip' => '99990001', 'role' => User::ROLE_KARYAWAN, 'password' => 'password']
         );
 
-        $this->shiftPagi = Shift::firstOrCreate(
-            ['name' => 'Shift Pagi Test'],
-            ['start_time' => '00:00', 'end_time' => '23:59']
+        $this->shiftPagi = Shift::where('name', 'Shift Pagi')->first() ?? Shift::firstOrCreate(
+            ['name' => 'Shift Pagi'],
+            ['start_time' => '08:00', 'end_time' => '16:00']
         );
-        $this->shiftPagi->update(['start_time' => '00:00', 'end_time' => '23:59']);
 
         // Bersihkan data sementara test user agar tes bersifat idempoten
         Attendance::where('user_id', $this->karyawan->id)->delete();
@@ -86,48 +85,53 @@ class HrisTest extends TestCase
      */
     public function test_employee_can_clock_in_with_geolocation_and_server_time_is_locked(): void
     {
-        $today = now()->toDateString();
+        Carbon::setTestNow(Carbon::today()->setTime(9, 0, 0));
+        try {
+            $today = now()->toDateString();
 
-        // Buat jadwal untuk karyawan hari ini
-        $schedule = Schedule::firstOrCreate(
-            ['user_id' => $this->karyawan->id, 'date' => $today],
-            ['shift_id' => $this->shiftPagi->id]
-        );
+            // Buat jadwal untuk karyawan hari ini
+            $schedule = Schedule::firstOrCreate(
+                ['user_id' => $this->karyawan->id, 'date' => $today],
+                ['shift_id' => $this->shiftPagi->id]
+            );
 
-        // Hapus absensi sebelumnya jika ada
-        Attendance::where('schedule_id', $schedule->id)->delete();
+            // Hapus absensi sebelumnya jika ada
+            Attendance::where('schedule_id', $schedule->id)->delete();
 
-        // Clock-In mengirim titik koordinat GPS
-        $response = $this->actingAs($this->karyawan)->post(route('employee.attendance.clock-in'), [
-            'latitude' => -6.2087634,
-            'longitude' => 106.8455990,
-        ]);
+            // Clock-In mengirim titik koordinat GPS
+            $response = $this->actingAs($this->karyawan)->post(route('employee.attendance.clock-in'), [
+                'latitude' => -6.2087634,
+                'longitude' => 106.8455990,
+            ]);
 
-        $response->assertRedirect(route('employee.attendance.index'));
+            $response->assertRedirect(route('employee.attendance.index'));
 
-        // Verifikasi record di database
-        $attendance = Attendance::where('user_id', $this->karyawan->id)
-            ->where('schedule_id', $schedule->id)
-            ->first();
+            // Verifikasi record di database
+            $attendance = Attendance::where('user_id', $this->karyawan->id)
+                ->where('schedule_id', $schedule->id)
+                ->first();
 
-        $this->assertNotNull($attendance);
-        $this->assertNotNull($attendance->clock_in_time);
-        $this->assertEquals('-6.2087634', $attendance->lat_in);
-        $this->assertEquals('106.8455990', $attendance->lng_in);
-        $this->assertNull($attendance->clock_out_time);
+            $this->assertNotNull($attendance);
+            $this->assertNotNull($attendance->clock_in_time);
+            $this->assertEquals('-6.2087634', $attendance->lat_in);
+            $this->assertEquals('106.8455990', $attendance->lng_in);
+            $this->assertNull($attendance->clock_out_time);
 
-        // Clock-Out
-        $responseOut = $this->actingAs($this->karyawan)->post(route('employee.attendance.clock-out'), [
-            'latitude' => -6.2087640,
-            'longitude' => 106.8456010,
-        ]);
+            // Clock-Out
+            $responseOut = $this->actingAs($this->karyawan)->post(route('employee.attendance.clock-out'), [
+                'latitude' => -6.2087640,
+                'longitude' => 106.8456010,
+            ]);
 
-        $responseOut->assertRedirect(route('employee.attendance.index'));
+            $responseOut->assertRedirect(route('employee.attendance.index'));
 
-        $attendance->refresh();
-        $this->assertNotNull($attendance->clock_out_time);
-        $this->assertEquals('-6.2087640', $attendance->lat_out);
-        $this->assertEquals('106.8456010', $attendance->lng_out);
+            $attendance->refresh();
+            $this->assertNotNull($attendance->clock_out_time);
+            $this->assertEquals('-6.2087640', $attendance->lat_out);
+            $this->assertEquals('106.8456010', $attendance->lng_out);
+        } finally {
+            Carbon::setTestNow();
+        }
     }
 
     /**
@@ -135,27 +139,32 @@ class HrisTest extends TestCase
      */
     public function test_employee_cannot_double_clock_in(): void
     {
-        $today = now()->toDateString();
-        $schedule = Schedule::firstOrCreate(
-            ['user_id' => $this->karyawan->id, 'date' => $today],
-            ['shift_id' => $this->shiftPagi->id]
-        );
+        Carbon::setTestNow(Carbon::today()->setTime(9, 0, 0));
+        try {
+            $today = now()->toDateString();
+            $schedule = Schedule::firstOrCreate(
+                ['user_id' => $this->karyawan->id, 'date' => $today],
+                ['shift_id' => $this->shiftPagi->id]
+            );
 
-        Attendance::where('user_id', $this->karyawan->id)->delete();
+            Attendance::where('user_id', $this->karyawan->id)->delete();
 
-        // Clock in 1
-        $this->actingAs($this->karyawan)->post(route('employee.attendance.clock-in'), [
-            'latitude' => -6.2,
-            'longitude' => 106.8,
-        ]);
+            // Clock in 1
+            $this->actingAs($this->karyawan)->post(route('employee.attendance.clock-in'), [
+                'latitude' => -6.2,
+                'longitude' => 106.8,
+            ]);
 
-        // Clock in 2 (harus ditolak karena sesi masih aktif)
-        $response = $this->actingAs($this->karyawan)->post(route('employee.attendance.clock-in'), [
-            'latitude' => -6.2,
-            'longitude' => 106.8,
-        ]);
+            // Clock in 2 (harus ditolak karena sesi masih aktif)
+            $response = $this->actingAs($this->karyawan)->post(route('employee.attendance.clock-in'), [
+                'latitude' => -6.2,
+                'longitude' => 106.8,
+            ]);
 
-        $response->assertSessionHas('error');
+            $response->assertSessionHas('error');
+        } finally {
+            Carbon::setTestNow();
+        }
     }
 
     /**
@@ -206,7 +215,8 @@ class HrisTest extends TestCase
      */
     public function test_admin_can_create_new_shift(): void
     {
-        $shiftName = 'Shift Khusus '.uniqid();
+        $shiftName = 'Shift Fleksibel';
+        Shift::where('name', $shiftName)->delete();
 
         $response = $this->actingAs($this->admin)->post(route('admin.shifts.store'), [
             'name' => $shiftName,
@@ -216,6 +226,9 @@ class HrisTest extends TestCase
 
         $response->assertRedirect(route('admin.shifts.index'));
         $this->assertDatabaseHas('shifts', ['name' => $shiftName]);
+
+        // Bersihkan shift pengujian agar tidak mengotori database
+        Shift::where('name', $shiftName)->delete();
     }
 
     /**

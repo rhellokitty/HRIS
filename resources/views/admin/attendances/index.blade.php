@@ -84,12 +84,7 @@
                     @forelse ($attendances as $att)
                         <tr>
                             <td>
-                                <div class="flex items-center gap-2">
-                                    <div class="avatar w-7 h-7 text-[10px]">
-                                        {{ $att->user->initials }}
-                                    </div>
-                                    <span class="font-semibold text-hris-text">{{ $att->user->name }}</span>
-                                </div>
+                                <span class="font-semibold text-hris-text">{{ $att->user->name }}</span>
                             </td>
                             <td class="font-mono text-hris-text-secondary">{{ $att->user->nip ?? '-' }}</td>
                             <td>

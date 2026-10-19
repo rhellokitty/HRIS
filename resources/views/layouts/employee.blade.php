@@ -26,7 +26,9 @@
         {{-- Top Bar: Avatar, Nama & Status Shift --}}
         <header class="glass-card flex items-center justify-between gap-3 p-4">
             <div class="flex min-w-0 items-center gap-3">
-                <div class="avatar h-11 w-11 text-base">{{ $initials ?: 'HR' }}</div>
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-hris-primary-soft text-hris-primary">
+                    <x-icon name="user" class="h-5 w-5" />
+                </div>
                 <div class="min-w-0">
                     <h2 class="truncate text-sm font-bold tracking-tight">{{ $displayName }}</h2>
                     <p class="truncate text-xs text-hris-text-secondary">
