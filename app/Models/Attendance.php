@@ -84,13 +84,13 @@ class Attendance extends Model
 
     protected function statusLabel(): Attribute
     {
-        return Attribute::get(fn () => self::STATUS_LABELS[$this->status] ?? ucfirst((string) $this->status));
+        return Attribute::get(fn() => self::STATUS_LABELS[$this->status] ?? ucfirst((string) $this->status));
     }
 
     protected function workDurationLabel(): Attribute
     {
         return Attribute::get(function () {
-            if (! $this->clock_in_time || ! $this->clock_out_time) {
+            if (!$this->clock_in_time || !$this->clock_out_time) {
                 return null;
             }
 
@@ -102,12 +102,12 @@ class Attendance extends Model
 
     protected function mapUrlIn(): Attribute
     {
-        return Attribute::get(fn () => self::mapUrl($this->lat_in, $this->lng_in));
+        return Attribute::get(fn() => self::mapUrl($this->lat_in, $this->lng_in));
     }
 
     protected function mapUrlOut(): Attribute
     {
-        return Attribute::get(fn () => self::mapUrl($this->lat_out, $this->lng_out));
+        return Attribute::get(fn() => self::mapUrl($this->lat_out, $this->lng_out));
     }
 
     public static function mapUrl(?string $lat, ?string $lng): ?string
@@ -116,6 +116,6 @@ class Attendance extends Model
             return null;
         }
 
-        return 'https://www.google.com/maps?q='.urlencode($lat.','.$lng);
+        return 'https://www.google.com/maps?q=' . urlencode($lat . ',' . $lng);
     }
 }

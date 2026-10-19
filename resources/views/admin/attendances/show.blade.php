@@ -2,11 +2,11 @@
 
 @section('title', 'Detail Presensi Karyawan')
 @section('page-title', 'Detail Presensi')
-@section('page-subtitle', 'Informasi absensi dan verifikasi titik koordinat GPS')
 
 @section('page-actions')
-    <a href="{{ route('admin.attendances.index') }}" class="btn-surface btn-md">
-        &larr; Kembali ke Rekap
+    <a href="{{ route('admin.attendances.index') }}" class="btn-surface btn-md flex items-center gap-1.5">
+        <x-icon name="chevron-left" class="w-4 h-4" />
+        <span>Kembali ke Rekap</span>
     </a>
 @endsection
 

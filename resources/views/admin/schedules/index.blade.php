@@ -2,7 +2,6 @@
 
 @section('title', 'Jadwal Shift Karyawan')
 @section('page-title', 'Jadwal Shift Karyawan')
-@section('page-subtitle', 'Plotting dan pengelolaan jadwal kerja tim')
 
 @section('page-actions')
     @if (auth()->user()->isAdmin())

@@ -2,7 +2,6 @@
 
 @section('title', 'Dashboard Monitoring')
 @section('page-title', 'Dashboard Monitoring')
-@section('page-subtitle', 'Ringkasan kehadiran dan operasional shift real-time')
 
 @section('page-actions')
     @if (auth()->user()->isAdmin())
@@ -126,7 +125,6 @@
         <div class="flex flex-wrap items-center justify-between gap-3">
             <div>
                 <h3 class="section-title">Jadwal Shift Operasional Hari Ini</h3>
-                <p class="caption">Live status kehadiran per karyawan untuk tanggal {{ $today->translatedFormat('d F Y') }}</p>
             </div>
             <div class="flex items-center gap-2">
                 <a href="{{ route('admin.attendances.index') }}" class="btn-surface btn-sm flex items-center gap-1.5">

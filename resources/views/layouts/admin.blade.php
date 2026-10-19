@@ -111,9 +111,6 @@
                     </button>
                     <div class="min-w-0">
                         <h2 class="page-title">@yield('page-title', 'Dashboard')</h2>
-                        @hasSection('page-subtitle')
-                            <p class="caption">@yield('page-subtitle')</p>
-                        @endif
                     </div>
                 </div>
 

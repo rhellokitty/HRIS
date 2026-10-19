@@ -2,7 +2,6 @@
 
 @section('title', 'Master Data Pengguna')
 @section('page-title', 'Data Pengguna & Karyawan')
-@section('page-subtitle', 'Kelola akun Admin, Operator, dan Karyawan')
 
 @section('page-actions')
     <a href="{{ route('admin.users.create') }}" class="btn-primary btn-md flex items-center gap-1.5">

@@ -2,7 +2,6 @@
 
 @section('title', 'Master Data Shift')
 @section('page-title', 'Master Shift')
-@section('page-subtitle', 'Manajemen jam kerja operasional karyawan')
 
 @section('page-actions')
     <a href="{{ route('admin.shifts.create') }}" class="btn-primary btn-md flex items-center gap-1.5">

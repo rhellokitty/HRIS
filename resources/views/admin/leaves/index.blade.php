@@ -2,7 +2,6 @@
 
 @section('title', 'Persetujuan Cuti & Izin')
 @section('page-title', 'Approval Cuti & Izin')
-@section('page-subtitle', 'Persetujuan permohonan cuti, izin, dan surat sakit karyawan')
 
 @section('content')
 <div class="flex flex-col gap-6 animate-fade-up">

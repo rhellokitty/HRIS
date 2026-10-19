@@ -6,16 +6,16 @@ Dokumen ini adalah acuan instruksi dan batasan desain wajib bagi seluruh AI Agen
 
 ## 1. Aturan Tampilan & Desain Antarmuka (UI/UX)
 
-### A. Dilarang Menggunakan `truncate` pada Judul & Subtitle
-- **ATURAN**: DILARANG KERAS menyematkan class `truncate` pada elemen `<p class="caption">` atau `@yield('page-subtitle')` dan `@yield('page-title')`.
-- **Rasional**: `truncate` memotong teks subtitle penjelasan secara kaku menjadi elipsis `...`, merusak keterbacaan instruksi di berbagai ukuran layar.
-- **Penerapan**: Biarkan judul dan subtitle mengalir secara alami (*natural wrap*):
+### A. Larangan Menggunakan Subtitle / Caption Redundant di Bawah Judul Halaman
+- **ATURAN**: DILARANG menampilkan subtitle / caption (`<p class="caption">` atau `@yield('page-subtitle')`) di bawah header judul halaman (`page-title`). Cukup tampilkan judul halaman yang bersih dan jelas tanpa caption tambahan yang berulang di semua halaman admin.
+- **Rasional**: Judul halaman (`@yield('page-title')`) sudah mendeskripsikan konteks halaman secara ringkas dan lugas. Teks subtitle membuat area header terkesan bertumpuk dan tidak minimalis.
+- **Larangan `truncate` pada Judul**: Pada seluruh elemen judul (`h1`, `h2`, `page-title`), DILARANG KERAS menyematkan class `truncate` agar judul tidak terpotong kaku menjadi elipsis `...`. Biarkan judul mengalir secara alami (*natural wrap*).
+- **Penerapan Header Bersih**:
   ```blade
-  {{-- BENAR --}}
-  <h2 class="page-title">@yield('page-title', 'Dashboard')</h2>
-  @hasSection('page-subtitle')
-      <p class="caption">@yield('page-subtitle')</p>
-  @endif
+  {{-- BENAR: Bersih, tanpa subtitle/caption redundant --}}
+  <div class="min-w-0">
+      <h2 class="page-title">@yield('page-title', 'Dashboard')</h2>
+  </div>
   ```
 
 ### B. Larangan Tipografi Angka "Warna-Warni" pada KPI & Kartu Metrik

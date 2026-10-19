@@ -2,7 +2,6 @@
 
 @section('title', 'Edit Master Shift')
 @section('page-title', 'Edit Master Shift')
-@section('page-subtitle', 'Ubah parameter jam kerja: {{ $shift->name }}')
 
 @section('content')
 <div class="max-w-xl animate-fade-up">
@@ -44,11 +43,13 @@
             </div>
 
             <div class="pt-2 flex items-center gap-3">
-                <button type="submit" class="btn-primary btn-md">
-                    Simpan Perubahan
+                <button type="submit" class="btn-primary btn-md flex items-center gap-1.5">
+                    <x-icon name="check" class="w-4 h-4" />
+                    <span>Simpan Perubahan</span>
                 </button>
-                <a href="{{ route('admin.shifts.index') }}" class="btn-surface btn-md">
-                    Batal
+                <a href="{{ route('admin.shifts.index') }}" class="btn-surface btn-md flex items-center gap-1.5">
+                    <x-icon name="x" class="w-4 h-4" />
+                    <span>Batal</span>
                 </a>
             </div>
         </form>

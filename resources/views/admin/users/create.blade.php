@@ -2,7 +2,6 @@
 
 @section('title', 'Tambah Pengguna Baru')
 @section('page-title', 'Tambah Pengguna')
-@section('page-subtitle', 'Daftarkan akun Admin, Operator, atau Karyawan baru')
 
 @section('content')
 <div class="max-w-xl animate-fade-up">
@@ -66,11 +65,13 @@
             </div>
 
             <div class="pt-2 flex items-center gap-3">
-                <button type="submit" class="btn-primary btn-md">
-                    Daftarkan Akun
+                <button type="submit" class="btn-primary btn-md flex items-center gap-1.5">
+                    <x-icon name="check" class="w-4 h-4" />
+                    <span>Daftarkan Akun</span>
                 </button>
-                <a href="{{ route('admin.users.index') }}" class="btn-surface btn-md">
-                    Batal
+                <a href="{{ route('admin.users.index') }}" class="btn-surface btn-md flex items-center gap-1.5">
+                    <x-icon name="x" class="w-4 h-4" />
+                    <span>Batal</span>
                 </a>
             </div>
         </form>
