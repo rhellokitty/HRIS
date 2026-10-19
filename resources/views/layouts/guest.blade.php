@@ -8,7 +8,7 @@
     <main class="mx-auto flex min-h-[100dvh] w-full max-w-md flex-col justify-center gap-5 px-4 py-10">
         <div class="flex items-center justify-between px-1">
             <div class="flex items-center gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-md bg-hris-primary text-sm font-bold text-white">HR</div>
+                <x-brand-logo size="lg" />
                 <div>
                     <h1 class="text-sm font-bold tracking-tight">{{ config('app.name', 'HRIS') }}</h1>
                     <p class="text-[11px] text-hris-text-muted">Shift &amp; Absensi</p>

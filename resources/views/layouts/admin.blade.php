@@ -36,7 +36,7 @@
             {{-- Brand Header --}}
             <div class="flex items-center justify-between gap-3 px-2 pt-1">
                 <div class="flex items-center gap-3">
-                    <div class="flex h-9 w-9 items-center justify-center rounded-md bg-hris-primary text-sm font-bold text-white">HR</div>
+                    <x-brand-logo />
                     <div>
                         <h1 class="text-sm font-bold tracking-tight text-hris-text">{{ config('app.name', 'HRIS') }}</h1>
                         <p class="text-[11px] text-hris-text-muted">Shift &amp; Absensi</p>
