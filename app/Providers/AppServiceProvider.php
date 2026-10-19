@@ -15,6 +15,11 @@ class AppServiceProvider extends ServiceProvider
             \Illuminate\Foundation\Console\ServeCommand::$passthroughVariables = array_merge(
                 \Illuminate\Foundation\Console\ServeCommand::$passthroughVariables,
                 [
+                    'Path',
+                    'PATH',
+                    'PATHEXT',
+                    'pathext',
+                    'ProgramData',
                     'SystemRoot',
                     'windir',
                     'WINDIR',
